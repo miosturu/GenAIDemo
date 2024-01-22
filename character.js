@@ -1,0 +1,69 @@
+"use strict"
+
+class Character {
+    constructor(name, maxHp, attacks) {
+        this.name = name,
+        this.maxHp = maxHp,
+        this.currentHp = maxHp,
+        this.attacks = attacks
+    }
+
+    print() {
+        console.log(
+            "Name: " + this.name +
+            "\nMax HP.: " + this.maxHp + 
+            "\nCurrent HP.: " + this.currentHP + 
+            "\nAttacks: " + this.attacks
+        );
+    }
+
+    doAttack(attackIndex) {
+        // console.log("Attack index: " + attackIndex);
+        return this.attacks[attackIndex].doAttack();
+    }
+
+    takeDamage(amount) {
+        // console.log(this.name + " took damage");
+        this.currentHp -= amount;
+        if (this.currentHp <= 0 ) {
+            console.log(this.name + " took too much damage");
+        }
+    }
+}
+
+class Enemy extends Character {
+    constructor(name, hp, goldOnKill, sprite) {
+        super(name, hp);
+        this.sprite = sprite;
+        this.goldOnKill = goldOnKill;
+    }
+
+    print() {
+        super.print();
+    }
+
+    doAttack(attackIndex) {
+        return super.doAttack(attackIndex);
+    }
+
+    takeDamage(amount) {
+        return super.takeDamage(amount);
+    }
+}
+
+class Player extends Character {
+    constructor(name, hp, goldOnStart) {
+        super(name, hp);
+        this.goldOnStart = goldOnStart;
+    }
+
+    print() {
+        console.log(
+            "Name: " + this.name +
+            "\nMax HP.: " + this.maxHp + 
+            "\nCurrent HP.: " + this.currentHP + 
+            "\nGold: " + this.goldOnStart + 
+            "\nAttacks: " + this.attacks
+        );
+    }
+}
