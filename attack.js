@@ -1,5 +1,7 @@
 "use strict";
 
+// TODO add attack damage type
+// Maybe use enmum?
 class Attack {
     constructor(attackName, attackDamage, attackUses) {
         this.name = attackName,
