@@ -40,7 +40,9 @@ var attackInfo;
 
 function preload()
 {
-    getEnemyData();
+    enemyData = getEnemyData();
+    console.log(enemyData);
+    console.log(enemyData[0])
     this.load.image('background', 'assets/backgrounds/background_brown.png');
     this.load.image('button', 'assets/sprites/button.png');
     this.load.image('enemy', 'assets/sprites/enemy.png');
@@ -116,12 +118,12 @@ function update() {
 
 
 function updateUi() {
-    updateUiText();
-
     if (enemy.currentHp <= 0) {
         enemyImage.setActive(false).setVisible(false);
         getNewEnemy();
     }
+
+    updateUiText();
 }
 
 
@@ -152,11 +154,12 @@ function getNewEnemy() {
 }
 
 
-function getEnemyData() {
+async function getEnemyData() {
+    // TODO How can I make this work?
     console.log("Loading enemy data")
-    fetch("./enemies.json")
-        .then( (res) => res.json() )
-        .then( (json) => console.log(json));
+    const res = await fetch("enemies.json");
+    const json = await res.json();
+    return json;
 }
 
 const game = new Phaser.Game(config);
