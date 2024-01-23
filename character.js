@@ -32,8 +32,8 @@ class Character {
 }
 
 class Enemy extends Character {
-    constructor(name, hp, goldOnKill, sprite) {
-        super(name, hp);
+    constructor(name, hp, goldOnKill, attacks, sprite) {
+        super(name, hp, attacks);
         this.sprite = sprite;
         this.goldOnKill = goldOnKill;
     }
@@ -52,9 +52,10 @@ class Enemy extends Character {
 }
 
 class Player extends Character {
-    constructor(name, hp, goldOnStart) {
-        super(name, hp);
+    constructor(name, hp, goldOnStart, attacks) {
+        super(name, hp, attacks);
         this.goldOnStart = goldOnStart;
+        this.currentGold = goldOnStart;
     }
 
     print() {

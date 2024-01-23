@@ -1,0 +1,28 @@
+{
+    "enemy0":{
+        "name": "Angry man",
+        "hp": 5,
+        "goldOnKill": 10,
+        "attacks": {
+            "attack01":{
+                "name": "Slap",
+                "damage": 1,
+                "uses": 1000
+            }
+        },
+        "sprite": "assets/sprites/enemy.png"
+    },
+    "enemy1":{
+        "name": "Suprised man",
+        "hp": 10,
+        "goldOnKill": 20,
+        "attacks": {
+            "attack01":{
+                "name": "Scream",
+                "damage": 3,
+                "uses": 1000
+            }
+        },
+        "sprite": "assets/sprites/enemy_yellow.png"
+    }
+}

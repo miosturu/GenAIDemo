@@ -20,9 +20,17 @@ class Gamemanager {
             this.enemy.maxHp);  
 
 
-        var enemyDamage = this.enemy.doAttack(0);
-        console.log("Enemy hit for " + enemyDamage + " points of damage");
-        this.player.takeDamage(enemyDamage);
+        // If the enemy is alive
+        if (this.enemy.currentHp > 0) {
+            var enemyDamage = this.enemy.doAttack(0);
+            console.log("Enemy hit for " + enemyDamage + " points of damage");
+            this.player.takeDamage(enemyDamage);
+        }
+        // If the enemy has died
+        if (this.enemy.currentHp <= 0) {
+            console.log("Gold gained: " + this.enemy.goldOnKill)
+            this.player.currentGold += this.enemy.goldOnKill;
+        }
         console.log(
             "Current player HP.: " + 
             this.player.currentHp + 
