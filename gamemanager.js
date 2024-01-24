@@ -10,6 +10,10 @@ class Gamemanager {
     }
 
     getParameters(par) {
+        if (this.player.currentHp <= 0){
+            return;
+        }
+
         var damage = this.player.doAttack(par);
         console.log("Player hit for " + damage + " points of damage");
         this.enemy.takeDamage(damage);

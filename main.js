@@ -78,13 +78,13 @@ function preload()
     // Define player
     player = new Player(
         "Player", 
-        10, // HP
+        20, // HP
         10, // Gold on start
         [
-            new Attack("Attack 0", 3, 10), 
-            new Attack("Attack 1", 5, 2),
-            new Attack("Attack 2", 3, 10), 
-            new Attack("Attack 3", 5, 2)
+            new Attack("Hug", 3, 10), 
+            new Attack("Pat", 5, 2),
+            new Attack("Tickle", 10, 1), 
+            new Attack("Thumbs up", 2, 20)
         ]
     );
 
@@ -95,8 +95,12 @@ function preload()
 
     gamemanager = new Gamemanager(player, enemy);
 
+    // Load UI components
     this.load.image('background', 'assets/backgrounds/background_brown.png');
     this.load.image('button', 'assets/sprites/button.png');
+    this.load.image('frame', 'assets/backgrounds/frame_gray.png')
+
+    // Load enemy sprites
     this.load.image('enemy', 'assets/sprites/enemy.png');
     this.load.image('enemy_yellow', 'assets/sprites/enemy_yellow.png');
     this.load.image('enemy_blue', 'assets/sprites/enemy_blue.png');
@@ -105,8 +109,29 @@ function preload()
 
 function create()
 {
+    // Add UI iamges
     this.add.image(400, 300, 'background');
-    
+
+    // 1st attack frame
+    this.add.image(70, 130, 'frame')
+    this.add.image(170, 130, 'frame')
+    this.add.image(290, 130, 'frame')
+
+    // 2nd attack frame
+    this.add.image(70, 205, 'frame')
+    this.add.image(170, 205, 'frame')
+    this.add.image(290, 205, 'frame')
+
+    // 3rd attack frame
+    this.add.image(70, 280, 'frame')
+    this.add.image(170, 280, 'frame')
+    this.add.image(290, 280, 'frame')
+
+    // ¤th attack frame
+    this.add.image(70, 355, 'frame')
+    this.add.image(170, 355, 'frame')
+    this.add.image(290, 355, 'frame')
+
     // Create buttons for attacks
     for (var i = 0; i < 4; i++)
     {
@@ -197,8 +222,7 @@ function updateUiText() {
     enemyUiInfo.setText(
         enemy.name + "\nHP: " + enemy.currentHp
     );
-
-    roomNumber++;
+        
 
     roomInfo.setText(
         "Room: " + roomNumber,
@@ -208,6 +232,7 @@ function updateUiText() {
 
 function getNewEnemy() {
     console.log("New enemy");
+    roomNumber++;
     enemy = enemies[getRandomInt()];
     
     gamemanager.changeEnemy(enemy);
