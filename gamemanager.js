@@ -38,4 +38,8 @@ class Gamemanager {
             this.player.maxHp);   
         console.log("\n\n");
     }
+
+    changeEnemy(newEnemy) {
+        this.enemy = newEnemy;
+    }
 }
