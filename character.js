@@ -31,6 +31,8 @@ class Character {
     }
 }
 
+
+// TODO add damage type weakness
 class Enemy extends Character {
     constructor(name, hp, goldOnKill, attacks, sprite) {
         super(name, hp, attacks);

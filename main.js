@@ -1,52 +1,105 @@
 "use strict";
 
-
 var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
     scene: {
         preload: preload,
-        create: create,
-        update: update
+        create: create
     }
 };
 
 
 // Define Player
-var playerAttacks = [
-    new Attack("Attack 0", 3, 10), 
-    new Attack("Attack 1", 5, 2),
-    new Attack("Attack 2", 3, 10), 
-    new Attack("Attack 3", 5, 2)
-];
-var player = new Player("Player", 10, 10, playerAttacks);
+var player;
 
 // Define Enemy
-var enemyData;
-var enemyAttacks = [
-    new Attack("Enemy attack", 1, 100)
-];
-var enemy = new Enemy("Enemy", 5, 10, enemyAttacks, 'enemy');
-var enemyImage;
-var enemyUiInfo;
+// TODO Load this from seperate file
+// At the moment this is good enough for demo purposes
+const enemyData = {
+    "enemy0":{
+        "name": "Angry man",
+        "hp": 5,
+        "goldOnKill": 10,
+        "attacks": {
+            "attack0":{
+                "name": "Slap",
+                "damage": 1,
+                "uses": 1000
+            }
+        },
+        "sprite": "enemy"
+    },
+    "enemy1":{
+        "name": "Suprised man",
+        "hp": 10,
+        "goldOnKill": 25,
+        "attacks": {
+            "attack0":{
+                "name": "Scream",
+                "damage": 3,
+                "uses": 1000
+            }
+        },
+        "sprite": "enemy_yellow"
+    },
+    "enemy2":{
+        "name": "nnam saD",
+        "hp": 1,
+        "goldOnKill": 1,
+        "attacks": {
+            "attack0":{
+                "name": "Wail",
+                "damage": 10,
+                "uses": 1000
+            }
+        },
+        "sprite": "enemy_blue"
+    }
+}
+
+// Enemy variables
+var enemy; // Current enemy
+var enemies = []; // Available enemies
+var enemyImage;  // Sprite holder for the enemy
+var enemyUiInfo; // UI info text for enemy
 
 // Game variables
 var button = [];
-var gamemanager = new Gamemanager(player, enemy);
+var gamemanager;
 var characterInfo;
 var attackInfo;
-
+var roomInfo;
+var roomNumber;
 
 function preload()
 {
-    enemyData = getEnemyData();
-    console.log(enemyData);
-    console.log(enemyData[0])
+    // Define player
+    player = new Player(
+        "Player", 
+        10, // HP
+        10, // Gold on start
+        [
+            new Attack("Attack 0", 3, 10), 
+            new Attack("Attack 1", 5, 2),
+            new Attack("Attack 2", 3, 10), 
+            new Attack("Attack 3", 5, 2)
+        ]
+    );
+
+    getEnemyData();
+    enemy = enemies[getRandomInt()];
+
+    roomNumber = 1;
+
+    gamemanager = new Gamemanager(player, enemy);
+
     this.load.image('background', 'assets/backgrounds/background_brown.png');
     this.load.image('button', 'assets/sprites/button.png');
     this.load.image('enemy', 'assets/sprites/enemy.png');
     this.load.image('enemy_yellow', 'assets/sprites/enemy_yellow.png');
+    this.load.image('enemy_blue', 'assets/sprites/enemy_blue.png');
 }
 
 
@@ -94,13 +147,20 @@ function create()
             {fontSize: "32px"})
     ];
 
+    // Enemy UI info
     enemyUiInfo = this.add.text(
         525, 16, 
         enemy.name + "\nHP: " + enemy.currentHp, 
         {fontSize: "32px"}
     );
 
-    enemyImage = this.add.sprite(575, 250, 'enemy');
+    roomInfo = this.add.text(
+        450, 350, 
+        "Room: " + roomNumber,
+        {fontSize: "64px"}
+    );
+
+    enemyImage = this.add.sprite(575, 250, enemy.sprite);
     enemyImage.setScale(4);
     
 }
@@ -110,10 +170,6 @@ function onButtonPressed(pointer, gameObject)
 {
     gamemanager.getParameters(this.myid);
     updateUi();
-}
-
-
-function update() {
 }
 
 
@@ -141,25 +197,53 @@ function updateUiText() {
     enemyUiInfo.setText(
         enemy.name + "\nHP: " + enemy.currentHp
     );
+
+    roomNumber++;
+
+    roomInfo.setText(
+        "Room: " + roomNumber,
+    );
 }
 
 
 function getNewEnemy() {
     console.log("New enemy");
-    // TODO Select random enemy
-    // TODO Reset Hp for the enemy
-    // TODO Add make the enemy visible
-    enemyImage.setTexture('enemy_yellow');
+    enemy = enemies[getRandomInt()];
+    
+    gamemanager.changeEnemy(enemy);
+
+    enemyImage.setTexture(enemy.sprite);
+
+    // TODO add delay
     enemyImage.setActive(true).setVisible(true);
+
+    gamemanager.print();
 }
 
 
-async function getEnemyData() {
-    // TODO How can I make this work?
-    console.log("Loading enemy data")
-    const res = await fetch("enemies.json");
-    const json = await res.json();
-    return json;
+function getRandomInt() {
+    return Math.floor(Math.random() * Object.keys(enemyData).length)
+}
+
+
+function getEnemyData() {
+    for (var i = 0; i < Object.keys(enemyData).length; i++) {
+        var currentEnemy = enemyData["enemy" + i];
+        enemies.push(
+            enemy = new Enemy(
+                currentEnemy["name"], 
+                currentEnemy["hp"],
+                currentEnemy["goldOnKill"],[
+                    new Attack(
+                        currentEnemy["attacks"]["attack0"]["name"],
+                        currentEnemy["attacks"]["attack0"]["damage"],
+                        currentEnemy["attacks"]["attack0"]["uses"],
+                    )
+                ],
+                currentEnemy["sprite"]
+            )
+        );
+    }
 }
 
 const game = new Phaser.Game(config);
