@@ -70,7 +70,8 @@ var button = [];
 var gamemanager;
 var characterInfo;
 var attackInfo;
-
+var roomInfo;
+var roomNumber;
 
 function preload()
 {
@@ -89,6 +90,8 @@ function preload()
 
     getEnemyData();
     enemy = enemies[getRandomInt()];
+
+    roomNumber = 1;
 
     gamemanager = new Gamemanager(player, enemy);
 
@@ -144,10 +147,17 @@ function create()
             {fontSize: "32px"})
     ];
 
+    // Enemy UI info
     enemyUiInfo = this.add.text(
         525, 16, 
         enemy.name + "\nHP: " + enemy.currentHp, 
         {fontSize: "32px"}
+    );
+
+    roomInfo = this.add.text(
+        450, 350, 
+        "Room: " + roomNumber,
+        {fontSize: "64px"}
     );
 
     enemyImage = this.add.sprite(575, 250, enemy.sprite);
@@ -170,7 +180,6 @@ function updateUi() {
     }
 
     updateUiText();
-
 }
 
 
@@ -188,14 +197,27 @@ function updateUiText() {
     enemyUiInfo.setText(
         enemy.name + "\nHP: " + enemy.currentHp
     );
+
+    roomNumber++;
+
+    roomInfo.setText(
+        "Room: " + roomNumber,
+    );
 }
 
 
 function getNewEnemy() {
     console.log("New enemy");
     enemy = enemies[getRandomInt()];
+    
+    gamemanager.changeEnemy(enemy);
+
     enemyImage.setTexture(enemy.sprite);
+
+    // TODO add delay
     enemyImage.setActive(true).setVisible(true);
+
+    gamemanager.print();
 }
 
 

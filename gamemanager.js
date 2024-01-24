@@ -41,5 +41,12 @@ class Gamemanager {
 
     changeEnemy(newEnemy) {
         this.enemy = newEnemy;
+        this.enemy.currentHp = this.enemy.maxHp;
+    }
+
+    print() {
+        console.log(
+            this.enemy
+        );
     }
 }
