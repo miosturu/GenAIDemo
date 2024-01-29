@@ -34,10 +34,11 @@ class Character {
 
 // TODO add damage type weakness
 class Enemy extends Character {
-    constructor(name, hp, goldOnKill, attacks, sprite) {
+    constructor(name, hp, goldOnKill, attacks, sprite, weakness) {
         super(name, hp, attacks);
         this.sprite = sprite;
         this.goldOnKill = goldOnKill;
+        this.weakness = weakness;
     }
 
     print() {

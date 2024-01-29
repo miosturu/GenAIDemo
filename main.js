@@ -23,39 +23,42 @@ const enemyData = {
         "hp": 5,
         "goldOnKill": 10,
         "attacks": {
-            "attack0":{
+            "attack0": {
                 "name": "Slap",
                 "damage": 1,
-                "uses": 1000
+                "uses": 1000,
             }
         },
-        "sprite": "enemy"
+        "sprite": "enemy",
+        "weakness": 0
     },
     "enemy1":{
         "name": "Suprised man",
         "hp": 10,
         "goldOnKill": 25,
         "attacks": {
-            "attack0":{
+            "attack0": {
                 "name": "Scream",
                 "damage": 3,
-                "uses": 1000
+                "uses": 1000,
             }
         },
-        "sprite": "enemy_yellow"
+        "sprite": "enemy_yellow",
+        "weakness": 1
     },
     "enemy2":{
         "name": "nnam saD",
         "hp": 1,
         "goldOnKill": 1,
         "attacks": {
-            "attack0":{
+            "attack0": {
                 "name": "Wail",
                 "damage": 10,
-                "uses": 1000
+                "uses": 1000,
             }
         },
-        "sprite": "enemy_blue"
+        "sprite": "enemy_blue",
+        "weakness": 2
     }
 }
 
@@ -81,10 +84,10 @@ function preload()
         20, // HP
         10, // Gold on start
         [
-            new Attack("Hug", 3, 10), 
-            new Attack("Pat", 5, 2),
-            new Attack("Tickle", 10, 1), 
-            new Attack("Thumbs up", 2, 20)
+            new Attack("Hug", 3, 10, 0), 
+            new Attack("Pat", 5, 2, 1),
+            new Attack("Tickle", 10, 1, 2), 
+            new Attack("Thumbs up", 2, 20, 0)
         ]
     );
 
@@ -193,8 +196,12 @@ function create()
 
 function onButtonPressed(pointer, gameObject)
 {
+    // Sends the index of the attack
     gamemanager.getParameters(this.myid);
     updateUi();
+    if (player.currentHp <= 0){
+        // TODO Restart the game/the shop view
+    }
 }
 
 
@@ -212,6 +219,7 @@ function updateUiText() {
     characterInfo[0].setText("HP: " + player.currentHp);
     characterInfo[1].setText("Gold: " + player.currentGold);
 
+    // Update attack's info
     for (var i = 0; i < player.attacks.length; i++) {
         attackInfo[i].setText(
             player.attacks[i].name + ", DMG: " + player.attacks[i].damage + 
@@ -219,11 +227,12 @@ function updateUiText() {
         );
     }
 
+    // Set enemy's HP
     enemyUiInfo.setText(
         enemy.name + "\nHP: " + enemy.currentHp
     );
         
-
+    // Set the room's number
     roomInfo.setText(
         "Room: " + roomNumber,
     );
@@ -252,20 +261,23 @@ function getRandomInt() {
 
 
 function getEnemyData() {
+
     for (var i = 0; i < Object.keys(enemyData).length; i++) {
         var currentEnemy = enemyData["enemy" + i];
         enemies.push(
             enemy = new Enemy(
                 currentEnemy["name"], 
                 currentEnemy["hp"],
-                currentEnemy["goldOnKill"],[
+                currentEnemy["goldOnKill"],
+                [
                     new Attack(
                         currentEnemy["attacks"]["attack0"]["name"],
                         currentEnemy["attacks"]["attack0"]["damage"],
                         currentEnemy["attacks"]["attack0"]["uses"],
                     )
                 ],
-                currentEnemy["sprite"]
+                currentEnemy["sprite"],
+                currentEnemy["weakness"]
             )
         );
     }
