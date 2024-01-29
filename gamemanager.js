@@ -10,15 +10,26 @@ class Gamemanager {
     }
 
     getParameters(par) {
+        if (this.player.currentHp <= 0){
+            return;
+        }
+
+        // Check if the enemy is weak to the damage
+        var dmgMultiplier = 1;
+        if ( this.player.attacks[par].attackType == this.enemy.weakness ) {
+            dmgMultiplier = 4;
+            console.log("Crit!");
+        }
+
         var damage = this.player.doAttack(par);
         console.log("Player hit for " + damage + " points of damage");
-        this.enemy.takeDamage(damage);
+        this.enemy.takeDamage(damage * dmgMultiplier);
         console.log(
             "Current enemy HP.: " + 
             this.enemy.currentHp + 
             "/" + 
-            this.enemy.maxHp);  
-
+            this.enemy.maxHp
+        );  
 
         // If the enemy is alive
         if (this.enemy.currentHp > 0) {
@@ -26,6 +37,7 @@ class Gamemanager {
             console.log("Enemy hit for " + enemyDamage + " points of damage");
             this.player.takeDamage(enemyDamage);
         }
+
         // If the enemy has died
         if (this.enemy.currentHp <= 0) {
             console.log("Gold gained: " + this.enemy.goldOnKill)
