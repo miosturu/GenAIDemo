@@ -21,6 +21,11 @@ class Gamemanager {
             console.log("Crit!");
         }
 
+        if (this.player.attacks[par].attackType == this.enemy.resistance) {
+            dmgMultiplier = 0.5;
+            console.log("Resisted the attack!");
+        }
+
         var damage = this.player.doAttack(par);
         console.log("Player hit for " + damage + " points of damage");
         this.enemy.takeDamage(damage * dmgMultiplier);
