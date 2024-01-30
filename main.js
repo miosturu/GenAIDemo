@@ -79,6 +79,12 @@ var attackInfo;
 var roomInfo;
 var roomNumber;
 
+
+/**
+ * Phaser's own preload function.
+ * Used for loading assets for the game.
+ * I also use this for initiating game objects outside the game.
+ */
 function preload()
 {
     // Define player
@@ -113,6 +119,10 @@ function preload()
 }
 
 
+/**
+ * Phaser's own create-function.
+ * Used for creating the entities for the game.
+ */
 function create()
 {
     // Add UI iamges
@@ -185,18 +195,24 @@ function create()
         {fontSize: "32px"}
     );
 
+    // Rooms number info
     roomInfo = this.add.text(
         450, 350, 
         "Room: " + roomNumber,
         {fontSize: "64px"}
     );
 
+    // Create enemy's sprite
     enemyImage = this.add.sprite(575, 250, enemy.sprite);
     enemyImage.setScale(4);
     
 }
 
 
+/**
+ * When the player clicks the button, this is called.
+ * This takes the name/index of the button and does the desired attack.
+ */
 function onButtonPressed(pointer, gameObject)
 {
     // Sends the index of the attack
@@ -208,6 +224,9 @@ function onButtonPressed(pointer, gameObject)
 }
 
 
+/**
+ * Updates the UI's text elements, gets the new enemy when it is killed.
+ */
 function updateUi() {
     if (enemy.currentHp <= 0) {
         enemyImage.setActive(false).setVisible(false);
@@ -218,6 +237,9 @@ function updateUi() {
 }
 
 
+/**
+ * Updates UI's text elemets.
+ */
 function updateUiText() {
     characterInfo[0].setText("HP: " + player.currentHp);
     characterInfo[1].setText("Gold: " + player.currentGold);
@@ -242,6 +264,11 @@ function updateUiText() {
 }
 
 
+/**
+ * Gets the new enemy. 
+ * A random enemy from the list is chosen.
+ * At the moment only called when the previous enemy is killed.
+ */
 function getNewEnemy() {
     console.log("New enemy");
     roomNumber++;
@@ -258,11 +285,19 @@ function getNewEnemy() {
 }
 
 
+/**
+ * Random integer from 0 to number of different enemies.
+ * @returns Ranom enemy's index
+ */
 function getRandomInt() {
     return Math.floor(Math.random() * Object.keys(enemyData).length)
 }
 
 
+/**
+ * Load enemy data from a dict/JSON.
+ * Ideally this would load the data from other file but at the momemt it doesn't work.
+ */
 function getEnemyData() {
 
     for (var i = 0; i < Object.keys(enemyData).length; i++) {

@@ -1,6 +1,9 @@
 "use strict";
 
-
+/**
+ * Gamemanager class.
+ * Keep tract of player and the enemy
+ */
 class Gamemanager {
     constructor(player, enemy) {
         this.player = player;
@@ -21,11 +24,13 @@ class Gamemanager {
             console.log("Crit!");
         }
 
+        // Check of the enemy has damage resistance to the attack
         if (this.player.attacks[par].attackType == this.enemy.resistance) {
             dmgMultiplier = 0.5;
             console.log("Resisted the attack!");
         }
 
+        // Do the damage to the enemy
         var damage = this.player.doAttack(par);
         console.log("Player hit for " + damage + " points of damage");
         this.enemy.takeDamage(damage * dmgMultiplier);
