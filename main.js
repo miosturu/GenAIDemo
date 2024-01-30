@@ -30,7 +30,8 @@ const enemyData = {
             }
         },
         "sprite": "enemy",
-        "weakness": 0
+        "weakness": 0,
+        "resistance": 1
     },
     "enemy1":{
         "name": "Suprised man",
@@ -44,7 +45,8 @@ const enemyData = {
             }
         },
         "sprite": "enemy_yellow",
-        "weakness": 1
+        "weakness": 1,
+        "resistance": 2
     },
     "enemy2":{
         "name": "nnam saD",
@@ -58,7 +60,8 @@ const enemyData = {
             }
         },
         "sprite": "enemy_blue",
-        "weakness": 2
+        "weakness": 2,
+        "resistance": 0
     }
 }
 
@@ -277,7 +280,8 @@ function getEnemyData() {
                     )
                 ],
                 currentEnemy["sprite"],
-                currentEnemy["weakness"]
+                currentEnemy["weakness"],
+                currentEnemy["resistance"],
             )
         );
     }
