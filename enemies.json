@@ -4,25 +4,44 @@
         "hp": 5,
         "goldOnKill": 10,
         "attacks": {
-            "attack01":{
+            "attack0": {
                 "name": "Slap",
                 "damage": 1,
                 "uses": 1000
             }
         },
-        "sprite": "assets/sprites/enemy.png"
+        "sprite": "enemy",
+        "weakness": 0,
+        "resistance": 1
     },
     "enemy1":{
         "name": "Suprised man",
         "hp": 10,
-        "goldOnKill": 20,
+        "goldOnKill": 25,
         "attacks": {
-            "attack01":{
+            "attack0": {
                 "name": "Scream",
                 "damage": 3,
                 "uses": 1000
             }
         },
-        "sprite": "assets/sprites/enemy_yellow.png"
+        "sprite": "enemy_yellow",
+        "weakness": 1,
+        "resistance": 2
+    },
+    "enemy2":{
+        "name": "nnam saD",
+        "hp": 1,
+        "goldOnKill": 1,
+        "attacks": {
+            "attack0": {
+                "name": "Wail",
+                "damage": 10,
+                "uses": 1000
+            }
+        },
+        "sprite": "enemy_blue",
+        "weakness": 2,
+        "resistance": 0
     }
 }
