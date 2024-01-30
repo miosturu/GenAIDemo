@@ -122,6 +122,7 @@ function preload()
 /**
  * Phaser's own create-function.
  * Used for creating the entities for the game.
+ * TODO create UI text if the enemy is critted or resisted the attack
  */
 function create()
 {
@@ -130,23 +131,35 @@ function create()
 
     // 1st attack frame
     this.add.image(70, 130, 'frame')
-    this.add.image(170, 130, 'frame')
-    this.add.image(290, 130, 'frame')
+    this.add.image(70, 160, 'frame')
+    this.add.image(150, 130, 'frame')
+    this.add.image(150, 160, 'frame')
+    this.add.image(275, 130, 'frame')
+    this.add.image(275, 160, 'frame')
 
     // 2nd attack frame
-    this.add.image(70, 205, 'frame')
-    this.add.image(170, 205, 'frame')
-    this.add.image(290, 205, 'frame')
+    this.add.image(70, 230, 'frame')
+    this.add.image(70, 260, 'frame')
+    this.add.image(150, 230, 'frame')
+    this.add.image(150, 260, 'frame')
+    this.add.image(275, 230, 'frame')
+    this.add.image(275, 260, 'frame')
 
     // 3rd attack frame
-    this.add.image(70, 280, 'frame')
-    this.add.image(170, 280, 'frame')
-    this.add.image(290, 280, 'frame')
+    this.add.image(70, 330, 'frame')
+    this.add.image(70, 360, 'frame')
+    this.add.image(150, 330, 'frame')
+    this.add.image(150, 360, 'frame')
+    this.add.image(275, 330, 'frame')
+    this.add.image(275, 360, 'frame')
 
-    // ¤th attack frame
-    this.add.image(70, 355, 'frame')
-    this.add.image(170, 355, 'frame')
-    this.add.image(290, 355, 'frame')
+    // 4th attack frame
+    this.add.image(70, 430, 'frame')
+    this.add.image(70, 460, 'frame')
+    this.add.image(150, 430, 'frame')
+    this.add.image(150, 460, 'frame')
+    this.add.image(275, 430, 'frame')
+    this.add.image(275, 460, 'frame')
 
     // Create buttons for attacks
     for (var i = 0; i < 4; i++)
@@ -169,22 +182,26 @@ function create()
         this.add.text(
             16, 100, 
             player.attacks[0].name + ", DMG: " + player.attacks[0].damage + 
-            "\nUses: " + player.attacks[0].uses,
+            "\nUses: " + player.attacks[0].uses + 
+            "\nDamage type:" + player.attacks[0].attackType,
             {fontSize: "32px"}),
         this.add.text(
-            16, 175, 
+            16, 200, 
             player.attacks[1].name + ", DMG: " + player.attacks[1].damage + 
-            "\nUses: " + player.attacks[1].uses,
+            "\nUses: " + player.attacks[1].uses+ 
+            "\nDamage type:" + player.attacks[1].attackType,
             {fontSize: "32px"}),
         this.add.text(
-            16, 250, 
+            16, 300, 
             player.attacks[2].name + ", DMG: " + player.attacks[2].damage + 
-            "\nUses: " + player.attacks[2].uses,
+            "\nUses: " + player.attacks[2].uses+ 
+            "\nDamage type:" + player.attacks[2].attackType,
             {fontSize: "32px"}),
         this.add.text(
-            16, 325, 
+            16, 400, 
             player.attacks[3].name + ", DMG: " + player.attacks[3].damage + 
-            "\nUses: " + player.attacks[3].uses,
+            "\nUses: " + player.attacks[3].uses+ 
+            "\nDamage type:" + player.attacks[3].attackType,
             {fontSize: "32px"})
     ];
 
